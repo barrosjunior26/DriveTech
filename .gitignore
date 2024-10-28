@@ -1,0 +1,19 @@
+#Diretórios e arquivos do Visual Studio e Visual Studio Code
+
+.vscode/
+.vs/
+*.csproj.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+#Diretórios de binários e logd
+
+bin/
+obj/
+*.log
+
+#Arquivos de configurações de ambientes locais
+
+.env
