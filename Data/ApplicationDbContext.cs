@@ -11,5 +11,6 @@ namespace DriveTech.Data
         }
 
         public DbSet<ServicoModel> tb_servico {  get; set; }
+        public DbSet<LoginModel> tb_login { get; set; }
     }
 }

@@ -11,6 +11,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddAuthentication("CookieAuthentication").AddCookie("CookieAuthentication", options =>
+{
+	options.LoginPath = "/Login/Entrar";
+	options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +33,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllerRoute(
 	name: "default",
