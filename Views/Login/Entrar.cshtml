@@ -1,0 +1,33 @@
+﻿@using DriveTech.Models
+
+@model LoginModel
+
+@{
+	ViewData["title"] = "Login - Portal DriveTech";
+}
+
+@using (Html.BeginForm("Entrar", "Login", FormMethod.Post, new {@class = "row g-3", @Style = "margin-top: 100px" }))
+{
+
+	if (TempData["ErroLogin"] != null)
+	{
+		<div class="alert alert-danger" role="alert">
+			@TempData["ErroLogin"]
+		</div>
+	}
+
+	<div class="col-6 text-center" style="width: 500px">
+		<h1 style="color: #2D56B3">@ViewData["title"]</h1>
+		<img src="/img/login-animate.svg" class="img-fluid" />
+	</div>
+	<div class="col-6" style="padding-top: 120px;">
+		<h2 style="color: #407BFF;">Entre com seu e-mail e senha para ter acesso aos serviços do portal DriveTech</h2>
+		@Html.LabelFor(Model => Model.Email, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Email, new { @class = "form-control" })
+		@Html.LabelFor(Model => Model.Senha, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Senha, new { @class = "form-control" })
+		<div class="mt-3">
+			<button type="submit" class="btn btn-outline-success">Acessar</button>
+		</div>
+	</div>
+}
