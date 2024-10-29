@@ -1,0 +1,42 @@
+﻿
+
+@{
+	ViewData["title"] = "Status dos veículos";
+}
+
+<h1 class="display-4 mb-5">@ViewData["title"]</h1>
+
+@{
+	if (TempData["MensagemSucesso"] != null)
+	{
+		<div class="mt-2 mb-2 alert alert-success" role="alert">
+			@TempData["MensagemSucesso"] <img src="/img/entrega-concluida.gif" class="img-fluid" style="width: 40px; height: 40px;" />
+		</div>
+	}
+}
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Placa</th>
+			<th scope="col">Marca</th>
+			<th scope="col">Modelo</th>
+			<th scope="col">Proprietário</th>
+			<th scope="col">Status do serviço</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			foreach(var servico in Model)
+			{
+				<tr>
+					<td>@servico.Placa</td>
+					<td>@servico.Marca</td>
+					<td>@servico.Modelo</td>
+					<td>@servico.Proprietario</td>
+					<td>@servico.Status</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

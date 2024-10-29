@@ -13,5 +13,6 @@
 		public string? Observacoes { get; set; } = string.Empty;
 		public byte[]? Imagem { get; set; }
 		public string TipoImagem { get; set; } = string.Empty;
-	}
+		public string Status { get; set; } = string.Empty;
+    }
 }

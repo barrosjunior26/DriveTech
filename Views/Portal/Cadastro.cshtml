@@ -1,0 +1,50 @@
+﻿@model DriveTech.Models.ServicoModel
+
+@{
+	ViewData["title"] = "Nova ordem de serviço";
+}
+
+@using(Html.BeginForm("Cadastro","Portal", FormMethod.Post, new {@enctype = "multipart/form-data", @class = "row g-3" }))
+{
+	<div class="col-md-3">
+		@Html.LabelFor(Model => Model.Proprietario, new{@class="form-label"})
+		@Html.TextBoxFor(Model => Model.Proprietario, new{@class="form-control"})
+	</div>
+	<div class="col-md-1">
+		@Html.LabelFor(Model => Model.Placa, new{@class="form-label"})
+		@Html.TextBoxFor(Model => Model.Placa, new{@class="form-control"})
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Marca, new{@class="form-label"})
+		@Html.TextBoxFor(Model => Model.Marca, new{@class="form-control"})
+	</div>
+	<div class="col-md-4">
+		@Html.LabelFor(Model => Model.Modelo, new{@class="form-label"})
+		@Html.TextBoxFor(Model => Model.Modelo, new{@class="form-control"})
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Cor, new{@class="form-label"})
+		@Html.DropDownListFor(Model => Model.Cor, new SelectList(Enum.GetValues(typeof(ListaCor))),new{@class="form-control"})
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Cadastro, new{@class="form-label"})
+		@Html.TextBoxFor(Model => Model.Cadastro, new{@class="form-control", @type = "date"})
+	</div>
+	<div class="col-md-4">
+		@Html.LabelFor(Model => Model.Imagem, new{@class="form-label"})
+		@Html.TextBoxFor(Model => Model.Imagem, new{@class="form-control", @type = "file", @name = "Imagem"})
+	</div>
+	<div class="col-md-3">
+		@Html.LabelFor(Model => Model.Status, new{@class="form-label"})
+		@Html.DropDownListFor(Model => Model.Status, new SelectList(Enum.GetValues(typeof(StatusServico))), new{@class="form-control"})
+	</div>
+	<div class="col-md-6">
+		@Html.LabelFor(Model => Model.Observacoes, new{@class="form-label"})
+		@Html.TextAreaFor(Model => Model.Observacoes, new{@class="form-control"})
+	</div>
+	<div class="col-12">
+		<button type="submit" class="btn btn-success">Salvar</button>
+		<a asp-controller="Portal" asp-action="Cadastro" class="btn btn-danger">Cancelar</a>
+		<a asp-controller="Home" asp-action="Index" class="btn btn-info">Voltar para início</a>
+	</div>
+}
