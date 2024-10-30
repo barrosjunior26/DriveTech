@@ -4,6 +4,7 @@ using DriveTech.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveTech.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241029223907_Foi_Excluido_AColuna_Atualizacao_Pois_nao_era_necessaria_no_projeto_ate_o_momento.")]
+    partial class Foi_Excluido_AColuna_Atualizacao_Pois_nao_era_necessaria_no_projeto_ate_o_momento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +61,6 @@ namespace DriveTech.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Alerta")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Cadastro")
                         .HasColumnType("datetime2");
 
@@ -70,9 +70,6 @@ namespace DriveTech.Migrations
 
                     b.Property<string>("Marca")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MensagemAlerta")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Modelo")

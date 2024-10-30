@@ -4,6 +4,10 @@
 	ViewData["title"] = "Nova ordem de serviço";
 }
 
+<div class="mb-3">
+	<h1 class="display-4">@ViewData["title"]</h1>
+</div>
+
 @using(Html.BeginForm("Cadastro","Portal", FormMethod.Post, new {@enctype = "multipart/form-data", @class = "row g-3" }))
 {
 	<div class="col-md-3">
@@ -27,16 +31,12 @@
 		@Html.DropDownListFor(Model => Model.Cor, new SelectList(Enum.GetValues(typeof(ListaCor))),new{@class="form-control"})
 	</div>
 	<div class="col-md-2">
-		@Html.LabelFor(Model => Model.Cadastro, new{@class="form-label"})
-		@Html.TextBoxFor(Model => Model.Cadastro, new{@class="form-control", @type = "date"})
-	</div>
-	<div class="col-md-4">
-		@Html.LabelFor(Model => Model.Imagem, new{@class="form-label"})
-		@Html.TextBoxFor(Model => Model.Imagem, new{@class="form-control", @type = "file", @name = "Imagem"})
-	</div>
-	<div class="col-md-3">
 		@Html.LabelFor(Model => Model.Status, new{@class="form-label"})
 		@Html.DropDownListFor(Model => Model.Status, new SelectList(Enum.GetValues(typeof(StatusServico))), new{@class="form-control"})
+	</div>
+	<div class="col-md-1">
+		@Html.LabelFor(Model => Model.Valor, new{@class="form-label"})
+		@Html.TextBoxFor(Model => Model.Valor, new{@class="form-control", @placeholder = "R$"})
 	</div>
 	<div class="col-md-6">
 		@Html.LabelFor(Model => Model.Observacoes, new{@class="form-label"})
@@ -45,6 +45,6 @@
 	<div class="col-12">
 		<button type="submit" class="btn btn-success">Salvar</button>
 		<a asp-controller="Portal" asp-action="Cadastro" class="btn btn-danger">Cancelar</a>
-		<a asp-controller="Home" asp-action="Index" class="btn btn-info">Voltar para início</a>
+		<a asp-controller="Portal" asp-action="Status" class="btn btn-info">Retorna a lista</a>
 	</div>
 }

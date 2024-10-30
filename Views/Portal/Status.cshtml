@@ -4,13 +4,28 @@
 	ViewData["title"] = "Status dos veículos";
 }
 
-<h1 class="display-4 mb-5">@ViewData["title"]</h1>
+<div class="d-flex justify-content-between align-items-center">
+	<div class="titulo">
+		<h1 class="display-4 mb-5">@ViewData["title"]</h1>
+	</div>
+	<div class="botao">
+		<a asp-controller="Portal" asp-action="Cadastro" class="btn btn-success">Nova ordem de serviço</a>
+		<a asp-controller="Login" asp-action="Sair" class="btn btn-danger">Sair do sistema</a>
+	</div>
+</div>
 
 @{
 	if (TempData["MensagemSucesso"] != null)
 	{
 		<div class="mt-2 mb-2 alert alert-success" role="alert">
-			@TempData["MensagemSucesso"] <img src="/img/entrega-concluida.gif" class="img-fluid" style="width: 40px; height: 40px;" />
+			@TempData["MensagemSucesso"] <img src="/img/marca-de-verificacao.png" class="img-fluid" />
+		</div>
+	}
+
+	if (TempData["MensagemSucessoUpdate"] != null)
+	{
+		<div class="alert alert-info mt-3 mb-3" role="alert">
+			@TempData["MensagemSucessoUpdate"] <img src="~/img/atualizar.png" class="img-fluid" />
 		</div>
 	}
 }
@@ -30,11 +45,40 @@
 			foreach(var servico in Model)
 			{
 				<tr>
-					<td>@servico.Placa</td>
+					<td>
+						<a asp-controller="Portal" asp-action="Atualizar" asp-route-id="@servico.Id" style="text-decoration: none; font-weight: 400">@servico.Placa</a>
+					</td>
 					<td>@servico.Marca</td>
 					<td>@servico.Modelo</td>
 					<td>@servico.Proprietario</td>
-					<td>@servico.Status</td>
+					<td>
+						@if(servico.Status == "Análise")
+						{
+							<a asp-controller="Portal" asp-action="Atualizar" asp-route-id="@servico.Id" style="text-decoration: none; color: #6864F7; font-weight: 500;">
+								Em análise <img src="/img/análise.png" class="img-fluid" style="width: 35px; height: 35px;" />
+							</a>
+						}
+						else if (servico.Status == "Manutenção")
+						{
+							<a asp-controller="Portal" asp-action="Atualizar" asp-route-id="@servico.Id" style="text-decoration: none; color: #FD8F01; font-weight: 500;">
+								Em manutenção <img src="/img/manutencao.gif" class="img-fluid" style="width: 35px; height: 35px;" />
+							</a>
+						}
+						else if (servico.Status == "Concluído")
+						{
+							<a asp-controller="Portal" asp-action="Atualizar" asp-route-id="@servico.Id" style="text-decoration: none; color: #009045; font-weight: 500;">
+								Concluído <img src="/img/marca-de-verificacao.png" class="img-fluid" style="width: 35px;height: 35px"/>
+							</a>
+						}else if (servico.Status == "Cancelado")
+						{
+							<a asp-controller="Portal" asp-action="Atualizar" asp-route-id="@servico.Id" style="text-decoration: none; color: red; font-weight: 500">
+								Cancelado <img src="/img/botao-x.png" class="img-fluid" style="width: 35px; height: 35px;" />
+							</a>
+						}else
+						{
+							
+						}
+					</td>
 				</tr>
 			}
 		}

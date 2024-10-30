@@ -1,0 +1,64 @@
+﻿@model DriveTech.Models.ServicoModel
+
+@{
+	ViewData["title"] = "Detalhamento do cadastro veicular";
+}
+
+
+@using (Html.BeginForm("Atualizar", "Portal", FormMethod.Post, new {@class = "row g-3 mt-5" }))
+{
+	<div class="col-md-1">
+		@Html.LabelFor(Model => Model.Id, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Id, new { @class = "form-control", @disabled = "disabled", @style = "color: red; font-weight: 600" })
+	</div>
+	<div class="col-md-3">
+		@Html.LabelFor(Model => Model.Proprietario, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Proprietario, new { @class = "form-control" })
+	</div>
+	<div class="col-md-1">
+		@Html.LabelFor(Model => Model.Placa, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Placa, new { @class = "form-control" })
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Marca, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Marca, new { @class = "form-control" })
+	</div>
+	<div class="col-md-4">
+		@Html.LabelFor(Model => Model.Modelo, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Modelo, new { @class = "form-control" })
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Cor, new { @class = "form-label" })
+		@Html.DropDownListFor(Model => Model.Cor, new SelectList(Enum.GetValues(typeof(ListaCor))), new { @class = "form-control" })
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Cadastro, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Cadastro, new { @class = "form-control", @value = Model.Cadastro, @type = "date-time",@readonly = "readonly" })
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Status, new { @class = "form-label" })
+		@Html.DropDownListFor(Model => Model.Status, new SelectList(Enum.GetValues(typeof(StatusServico))), new { @class = "form-control" })
+	</div>
+	<div class="col-md-1">
+		@Html.LabelFor(Model => Model.Valor, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Valor, new { @class = "form-control", @placeholder = "R$", @style = "color: green; font-weight: 700" })
+	</div>
+	<div class="col-md-6">
+		@Html.LabelFor(Model => Model.MensagemAlerta, new { @class = "form-label", @style = "color: red; font-weight: 600" })
+		@Html.TextAreaFor(Model => Model.MensagemAlerta, new{@class="form-control"})
+	</div>
+	<div class="col-12">
+		<div class="form-check">
+			<label class="form-check-label" for="flexCheckDefault" style="color: red; font-weight: 600;">Acionar alerta <img src="/img/alarme.png" class="img-fluid" style="width: 40px; height: 40px;" /></label>
+			<input class="form-check-input" type="checkbox" asp-for="Alerta" id="flexCheckDefault" style="margin-top: 10px;">
+		</div>
+	</div>
+	<div class="col-md-6">
+		@Html.LabelFor(Model => Model.Observacoes, new { @class = "form-label" })
+		@Html.TextAreaFor(Model => Model.Observacoes, new { @class = "form-control" })
+	</div>
+	<div class="col-12">
+		<button type="submit" class="btn btn-success">Atualizar</button>
+		<a asp-controller="Portal" asp-action="Status" class="btn btn-info">Voltar</a>
+	</div>
+}

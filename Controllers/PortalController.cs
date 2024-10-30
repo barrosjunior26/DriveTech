@@ -1,10 +1,12 @@
 ﻿using DriveTech.Data;
 using DriveTech.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DriveTech.Controllers
 {
+    [Authorize(AuthenticationSchemes = "CookieAuthentication")]
 	public class PortalController : Controller
 	{
 		private readonly ApplicationDbContext _banco;
@@ -16,25 +18,15 @@ namespace DriveTech.Controllers
         [HttpGet]
         public IActionResult Cadastro()
         {
-            var cadastro = new ServicoModel(); // Cria uma nova instância do modelo
+            var cadastro = new ServicoModel(); //Cria uma nova instância do modelo
 			return View(cadastro);
         }
 
 		[HttpPost]
-        public async Task<IActionResult> Cadastro(ServicoModel novo, IFormFile Imagem)
+        public async Task<IActionResult> Cadastro(ServicoModel novo)
 		{
             if (ModelState.IsValid)
             {
-                if (Imagem != null && Imagem.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        await Imagem.CopyToAsync(ms);
-                        novo.Imagem = ms.ToArray();
-                        novo.TipoImagem = Imagem.ContentType;
-                    }
-                }
-
                 _banco.tb_servico.Add(novo);
                 await _banco.SaveChangesAsync();
 
@@ -47,10 +39,67 @@ namespace DriveTech.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Status()
+        public IActionResult Status()
         {
-            var listaDeVeiculos = await _banco.tb_servico.ToListAsync();
+            var listaDeVeiculos = _banco.tb_servico.ToList();
             return View(listaDeVeiculos);
         }
+
+        [HttpGet]
+        public IActionResult Atualizar(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            ServicoModel servicoModel = _banco.tb_servico.FirstOrDefault(x => x.Id == id);
+
+            if (servicoModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(servicoModel);
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> Atualizar(ServicoModel atualizar)
+		{
+            if (atualizar == null)
+            {
+                return BadRequest("Modelo não pode ser nulo.");
+            }
+
+
+            if (!ModelState.IsValid)
+            {
+                return View(atualizar);
+            }
+
+            var servicoExistente = await _banco.tb_servico.FindAsync(atualizar.Id);
+
+            if (servicoExistente == null)
+            {
+                return NotFound();
+            }
+
+            servicoExistente.Proprietario = atualizar.Proprietario;
+            servicoExistente.Placa = atualizar.Placa;
+            servicoExistente.Marca = atualizar.Marca;
+            servicoExistente.Modelo = atualizar.Modelo;
+            servicoExistente.Cor = atualizar.Cor;
+            servicoExistente.Status = atualizar.Status;
+            servicoExistente.Valor = atualizar.Valor;
+            servicoExistente.Observacoes = atualizar.Observacoes;
+            servicoExistente.Alerta = atualizar.Alerta;
+            servicoExistente.MensagemAlerta = atualizar.MensagemAlerta;
+
+            await _banco.SaveChangesAsync();
+
+			TempData["MensagemSucessoUpdate"] = "Dados atualizados com sucesso!";
+
+            return RedirectToAction("Status");
+		}
 	}
 }

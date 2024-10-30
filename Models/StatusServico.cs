@@ -4,6 +4,8 @@
 	{
 		Análise = 1,
 		Manutenção,
-		Concluído
+		Concluído,
+		Cancelado,
+		Aguardando
 	}
 }

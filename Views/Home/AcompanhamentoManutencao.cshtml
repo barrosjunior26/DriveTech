@@ -1,0 +1,65 @@
+﻿@using DriveTech.Models
+
+@model IEnumerable<ServicoModel>
+
+@{
+	ViewData["title"] = "Acompanhamento de manutenção veicular";	
+}
+
+<h1 class="display-4">@ViewData["title"]</h1>
+
+<table class="table table-hover mt-5">
+	<thead>
+		<tr>
+			<th scope="col">Placa</th>
+			<th scope="col">Modelo</th>
+			<th scope="col">Proprietário</th>
+			<th scope="col">Status</th>
+			<th scope="col">Alertas <img src="/img/alarme.png" style="width: 30px; height: 30px;" class="img-fluid" /></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			if(Model != null)
+			{
+				if(Model.Count() > 0)
+				{
+					foreach(var veiculo in Model)
+					{
+						<tr>
+							<td>@veiculo.Placa</td>
+							<td>@veiculo.Modelo</td>
+							<td>@veiculo.Proprietario</td>
+							<td style="font-weight:600;">
+								@{
+									if(veiculo.Status == "Análise")
+									{
+										<p style="color: dodgerblue">Em análise <img src="/img/análise.png" style="width: 30px; height: 30px;" class="img-fluid" /></p>
+									}else if (veiculo.Status == "Manutenção")
+									{
+										<p>Em manutenção <img src="/img/manutencao.gif" style="width: 30px; height: 30px;" class="img-fluid" /></p>
+									}else if (veiculo.Status == "Concluído")
+									{
+										<p style="color: green">Concluído <img src="/img/marca-de-verificacao.png" style="width: 30px; height: 30px;" class="img-fluid" /></p>
+									}
+									else
+									{
+										<p style="color:red">Cancelado <img src="/img/botao-x.png" style="width: 30px; height: 30px;" class="img-fluid" /></p>
+									}
+								}
+							</td>
+							@{
+								if (veiculo.Alerta == true)
+								{
+									<td>
+										<a asp-controller="Home" asp-action="Alerta" asp-route-id="@veiculo.Id" style="text-decoration: none; font-weight: 500; color: orangered">Ver mensagem <img src="/img/alerta.gif" class="img-fluid" style="width: 30px; height: 30px" /></a>
+									</td>
+								}
+							}
+						</tr>
+					}
+				}
+			}
+		}
+	</tbody>
+</table>

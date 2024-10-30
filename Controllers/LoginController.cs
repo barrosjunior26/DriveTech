@@ -21,7 +21,7 @@ namespace DriveTech.Controllers
 
             if (usuario.Identity.IsAuthenticated)
             {
-                return Redirect("/Portal/Cadastro");
+                return Redirect("/Portal/Status");
             }
 
             return View();
@@ -46,7 +46,7 @@ namespace DriveTech.Controllers
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identidadeUsuario);
             await HttpContext.SignInAsync("CookieAuthentication", claimsPrincipal, new AuthenticationProperties());
 
-            return Redirect("/Portal/Cadastro");
+            return Redirect("/Portal/Status");
         }
 
         public async Task<IActionResult> Sair()

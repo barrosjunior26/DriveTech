@@ -1,0 +1,20 @@
+﻿@using DriveTech.Models
+
+@model ServicoModel
+
+@{
+	ViewData["title"] = "Alertas";
+}
+
+<h1 class="display-4">@ViewData["title"]</h1>
+
+@using(Html.BeginForm("Alerta","Home", FormMethod.Get, new {@class="row g-3 mt-5" }))
+{
+	<div class="col-md-6">
+		@Html.LabelFor(Model => Model.MensagemAlerta, new { @class = "form-label"})
+		@Html.TextBoxFor(Model => Model.MensagemAlerta, new {@value = "Observacoes", @class = "form-control", @readonly = "readonly" })
+	</div>
+	<div class="col-12">
+		<a asp-controller="Home" asp-action="AcompanhamentoManutencao" class="btn btn-info">Voltar</a>
+	</div>
+}

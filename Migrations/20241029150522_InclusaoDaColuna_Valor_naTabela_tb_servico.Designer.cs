@@ -4,6 +4,7 @@ using DriveTech.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveTech.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241029150522_InclusaoDaColuna_Valor_naTabela_tb_servico")]
+    partial class InclusaoDaColuna_Valor_naTabela_tb_servico
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,21 +61,21 @@ namespace DriveTech.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Alerta")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("Cadastro")
+                    b.Property<DateTime>("Atualizacao")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("Cadastro")
+                        .HasColumnType("date");
 
                     b.Property<string>("Cor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Imagem")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Marca")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MensagemAlerta")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Modelo")
@@ -91,6 +94,10 @@ namespace DriveTech.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoImagem")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

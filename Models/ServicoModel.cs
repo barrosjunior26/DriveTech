@@ -8,11 +8,11 @@
 		public string Marca { get; set; } = string.Empty;
 		public string Modelo { get; set; } = string.Empty;
 		public string Cor { get; set; } = string.Empty;
-		public DateOnly Cadastro { get; set; }
-		public DateTime Atualizacao { get; set; } = DateTime.Now;
+		public DateTime Cadastro { get; set; } = DateTime.Now;
 		public string? Observacoes { get; set; } = string.Empty;
-		public byte[]? Imagem { get; set; }
-		public string TipoImagem { get; set; } = string.Empty;
 		public string Status { get; set; } = string.Empty;
+        public decimal? Valor { get; set; }
+		public bool Alerta { get; set; } = false;
+		public string? MensagemAlerta { get; set; } = string.Empty;
     }
 }
