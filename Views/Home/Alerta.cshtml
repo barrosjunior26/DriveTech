@@ -6,15 +6,15 @@
 	ViewData["title"] = "Alertas";
 }
 
-<h1 class="display-4">@ViewData["title"]</h1>
+<h1 class="display-4">@ViewData["title"] <img src="/img/alarme.png" class="img-fluid" style="width: 40px; height: 40px;"/></h1>
 
 @using(Html.BeginForm("Alerta","Home", FormMethod.Get, new {@class="row g-3 mt-5" }))
 {
 	<div class="col-md-6">
-		@Html.LabelFor(Model => Model.MensagemAlerta, new { @class = "form-label"})
-		@Html.TextBoxFor(Model => Model.MensagemAlerta, new {@value = "Observacoes", @class = "form-control", @readonly = "readonly" })
+		@Html.LabelFor(Model => Model.MensagemAlerta, new { @class = "form-label", @id = "mensagem"})
+		@Html.TextAreaFor(Model => Model.MensagemAlerta, new {@value = "Observacoes", @class = "form-control", @rows = "3",@id = "mensagem",@readonly = "readonly", @style = "background: orange; color: white; font-weight: 600;" })
 	</div>
 	<div class="col-12">
-		<a asp-controller="Home" asp-action="AcompanhamentoManutencao" class="btn btn-info">Voltar</a>
+		<a asp-controller="Home" asp-action="AcompanhamentoManutencao" class="btn btn-info" style="color:white">Voltar</a>
 	</div>
 }
