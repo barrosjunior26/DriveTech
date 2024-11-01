@@ -2,6 +2,7 @@
 using DriveTech.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace DriveTech.Controllers
@@ -53,6 +54,82 @@ namespace DriveTech.Controllers
         {
             await HttpContext.SignOutAsync();
             return Redirect("/Login/Entrar");
+        }
+
+        [HttpGet]
+        public IActionResult CadUsuario()
+        {
+            return View();
+        }
+
+		[HttpPost]
+        public IActionResult CadUsuario(LoginModel novo)
+        {
+            if (ModelState.IsValid)
+            {
+                _banco.tb_login.Add(novo);
+                _banco.SaveChanges();
+
+                TempData["MensagemSucessoUser"] = "Cadastro de usuário realizado com sucesso.";
+                
+                return RedirectToAction("ListaUsuarios", "Login");
+            }
+
+            return View(novo);
+        }
+
+        [HttpGet]
+        public IActionResult DetalhesUsuario(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            LoginModel usuarios = _banco.tb_login.FirstOrDefault(u => u.Id == id);
+
+            if (usuarios == null)
+            {
+                return NotFound();
+            }
+
+            return View(usuarios);
+        }
+
+        [HttpPost]
+        public IActionResult DetalhesUsuario(LoginModel atualizar)
+        {
+			if (ModelState.IsValid)
+			{
+				_banco.tb_login.Update(atualizar);
+				_banco.SaveChanges();
+
+				TempData["MensagemSucessoUpdate"] = "Cadastro de usuário atualizado com sucesso.";
+
+				return RedirectToAction("ListaUsuarios", "Login");
+			}
+
+			return View(atualizar);
+		}
+
+        [HttpGet]
+        public IActionResult ListaUsuarios()
+        {
+            var listaUsuarios = _banco.tb_login.ToList();
+            return View(listaUsuarios);
+        }
+
+        public IActionResult Excluir(LoginModel excluir)
+        {
+            if(excluir == null)
+            {
+                return NotFound();
+            }
+
+            _banco.tb_login.Remove(excluir);
+            _banco.SaveChanges();
+
+            return Redirect("/Login/ListaUsuarios");
         }
 	}
 }

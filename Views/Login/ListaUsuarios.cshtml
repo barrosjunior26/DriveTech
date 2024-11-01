@@ -1,0 +1,60 @@
+﻿@using DriveTech.Models
+
+
+
+@{
+	ViewData["title"] = "Lista de usuários";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-5">
+	<div class="titulo">
+		<h1 class="display-4 mb-5">@ViewData["title"]</h1>
+	</div>
+	<div class="botao">
+		<a asp-controller="Portal" asp-action="Status" class="btn btn-info text-light">Voltar</a>
+	</div>
+</div>
+
+
+@{
+	if (TempData["MensagemSucessoUser"] != null)
+	{
+		<div class="alert alert-success" role="alert">
+			@TempData["MensagemSucessoUser"] <img src="~/img/marca-de-verificacao.png" class="img-fluid" />
+		</div>
+	}
+}
+
+@{
+	if (TempData["MensagemSucessoUpdate"] != null)
+	{
+		<div class="alert alert-info" role="alert">
+			@TempData["MensagemSucessoUpdate"] <img src="~/img/atualizar.png" class="img-fluid" />
+		</div>
+	}
+}
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Nome</th>
+			<th scope="col">E-mail</th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			foreach(var usuario in Model)
+			{
+				<tr>
+					<td>@usuario.Nome</td>
+					<td>@usuario.Email</td>
+					<td>
+						<a asp-controller="Login" asp-action="DetalhesUsuario" asp-route-id="@usuario.Id" class="btn btn-info text-light">Editar <i class="bi bi-pencil-square"></i></a>
+						<a asp-controller="Login" asp-action="Excluir" asp-route-id="@usuario.Id" class="btn btn-danger">Excluir <i class="bi bi-person-x-fill"></i></a>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

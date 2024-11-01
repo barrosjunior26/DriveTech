@@ -9,7 +9,9 @@
 		<h1 class="display-4 mb-5">@ViewData["title"]</h1>
 	</div>
 	<div class="botao">
-		<a asp-controller="Portal" asp-action="Cadastro" class="btn btn-success">Nova ordem de serviço</a>
+		<a asp-controller="Portal" asp-action="Cadastro" class="btn btn-success">Nova O.S</a>
+		<a asp-controller="Login" asp-action="CadUsuario" class="btn btn-primary">Cadastrar usuário</a>
+		<a asp-controller="Login" asp-action="ListaUsuarios" class="btn btn-primary">Lista de usuários</a>
 		<a asp-controller="Login" asp-action="Sair" class="btn btn-danger">Sair do sistema</a>
 	</div>
 </div>

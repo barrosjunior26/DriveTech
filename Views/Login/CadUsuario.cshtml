@@ -1,0 +1,30 @@
+﻿@using DriveTech.Models
+
+@model LoginModel
+
+@{
+	ViewData["title"] = "Cadastro de usuário";
+}
+
+<h1 class="display-4 mb-5">@ViewData["title"]</h1>
+
+@using (Html.BeginForm("CadUsuario", "Login", FormMethod.Post, new {@class="row g-3" }))
+{
+	<div class="col-md-3">
+		@Html.LabelFor(Model => Model.Nome, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Nome, new { @class = "form-control" })
+	</div>
+	<div class="col-md-4">
+		@Html.LabelFor(Model => Model.Email, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Email, new { @class = "form-control" })
+	</div>
+	<div class="col-md-2">
+		@Html.LabelFor(Model => Model.Senha, new { @class = "form-label" })
+		@Html.TextBoxFor(Model => Model.Senha, new { @class = "form-control" })
+	</div>
+	<div class="col-12">
+		<button type="submit" class="btn btn-success">Salvar</button>
+		<a asp-controller="Login" asp-action="CadUsuario" class="btn btn-danger">Cancelar</a>
+		<a asp-controller="Portal" asp-action="Status" class="btn btn-info text-light">Voltar</a>
+	</div>
+}
