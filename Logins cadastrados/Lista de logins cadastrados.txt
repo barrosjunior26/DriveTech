@@ -1,0 +1,11 @@
+Lista de logins cadastrados:
+
+Nome: Almir Vieira Da Silva Almeida
+E-mail: almirsilva26@gmail.com
+Senha: 12345
+
+------------------------------------
+
+Nome: José da Silva Júnior
+E-mail: josedasilvajunior@gmail.com
+Senha: 12345
